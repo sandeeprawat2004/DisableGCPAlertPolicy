@@ -11,7 +11,9 @@ pipeline {
         }
 		stage('Gcloud Disable Alert') {
             steps {
+		sh '''
                 gcloud alpha monitoring policies update projects/premium-state-368208/alertPolicies/3449565678435504101 --no-enabled
+		'''
             }
         }
     }
