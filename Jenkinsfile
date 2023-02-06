@@ -13,7 +13,7 @@ pipeline {
             steps {
 		    withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]) {
 			sh '''
-			gcloud auth activate-service-account '581593856643-compute@developer.gserviceaccount.com' --key-file='#GCLOUD_CREDS' --project='premium-state-368208'
+			gcloud auth activate-service-account '581593856643-compute@developer.gserviceaccount.com' --key-file='$GCLOUD_CREDS' --project='premium-state-368208'
 			'''
 		    }
             }
