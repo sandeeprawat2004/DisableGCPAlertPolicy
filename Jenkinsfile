@@ -11,9 +11,11 @@ pipeline {
         }
         stage('Gcloud Auth') {
             steps {
-		sh '''
-                gcloud auth activate-service-account '581593856643-compute@developer.gserviceaccount.com' --key-file='/var/tmp/key-file.json' --project='premium-state-368208'
-		'''
+		    withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]) {
+			sh '''
+			gcloud auth activate-service-account '581593856643-compute@developer.gserviceaccount.com' --key-file='#GCLOUD_CREDS' --project='premium-state-368208'
+			'''
+		    }
             }
         }
 	stage('Gcloud Disable Alert') {
