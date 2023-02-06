@@ -1,5 +1,10 @@
 pipeline {
     agent any
+	environment{
+		CLOUDSDK_CORE_PROJECT='premium-state-368208'
+		CLIENT_EMAIL='581593856643-compute@developer.gserviceaccount.com'
+		GCLOUD_CREDS=credentials('gcloud-creds')
+	}
 
     stages {
 	stage('Test') {
@@ -11,11 +16,9 @@ pipeline {
         }
         stage('Gcloud Auth') {
             steps {
-		    withCredentials([file(credentialsId: 'gcloud-creds', variable: 'GCLOUD_CREDS')]) {
-			sh '''
-			gcloud auth activate-service-account '581593856643-compute@developer.gserviceaccount.com' --key-file='$GCLOUD_CREDS' --project='premium-state-368208'
-			'''
-		    }
+		sh '''
+		gcloud auth activate-service-account  --key-file='$GCLOUD_CREDS'
+		'''
             }
         }
 	stage('Gcloud Disable Alert') {
